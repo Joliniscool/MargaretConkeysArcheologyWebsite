@@ -1,0 +1,221 @@
+/* Margaret W. Conkey — site styles
+   Palette: limestone ground, charcoal ink, red-ochre accent, Pyrenean slate. */
+:root {
+  --ground: #f7f3ec;
+  --paper: #fffdf9;
+  --ink: #2a2622;
+  --ink-soft: #5d554d;
+  --ochre: #9a4a24;
+  --ochre-soft: #f1e2d4;
+  --slate: #3a4656;
+  --rule: #e2d9cc;
+  --serif: "Cormorant Garamond", "EB Garamond", Georgia, "Times New Roman", serif;
+  --sans: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+  --max: 68rem;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font: 1.0625rem/1.65 var(--sans);
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--ochre); text-underline-offset: 3px; }
+a:hover { color: var(--slate); }
+
+.skip-link {
+  position: absolute; left: -999px; top: 0;
+  background: var(--ink); color: #fff; padding: .5rem 1rem; z-index: 100;
+}
+.skip-link:focus { left: 1rem; }
+
+.wrap { max-width: var(--max); margin: 0 auto; padding-inline: 1.25rem; }
+
+/* ---------- Header + nav ---------- */
+.site-header {
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  position: sticky; top: 0; z-index: 50;
+}
+.site-header .wrap {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; min-height: 4.25rem;
+}
+.brand {
+  font-family: var(--serif); font-size: 1.6rem; font-weight: 600;
+  color: var(--ink); text-decoration: none; letter-spacing: .01em; line-height: 1.1;
+}
+.brand small {
+  display: block; font-family: var(--sans); font-size: .72rem; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--ochre); margin-top: .3rem;
+}
+
+.nav-toggle {
+  display: none; background: none; border: 1px solid var(--rule); border-radius: 4px;
+  padding: .45rem .7rem; font: 600 .85rem var(--sans); color: var(--ink); cursor: pointer;
+}
+
+.main-nav > ul { list-style: none; margin: 0; padding: 0; display: flex; gap: .25rem; }
+.main-nav li { position: relative; }
+.main-nav a, .main-nav .menu-btn {
+  display: block; padding: .55rem .8rem; color: var(--ink); text-decoration: none;
+  font: 600 .8rem/1 var(--sans); letter-spacing: .1em; text-transform: uppercase;
+  background: none; border: 0; cursor: pointer; border-radius: 3px;
+}
+.main-nav a:hover, .main-nav .menu-btn:hover,
+.main-nav a[aria-current="page"] { color: var(--ochre); }
+.menu-btn::after { content: " ▾"; font-size: .7em; }
+
+.submenu {
+  list-style: none; margin: 0; padding: .4rem 0;
+  position: absolute; left: 0; top: 100%; min-width: 15rem;
+  background: var(--paper); border: 1px solid var(--rule); border-top: 3px solid var(--ochre);
+  box-shadow: 0 10px 24px rgba(42, 38, 34, .12);
+  opacity: 0; visibility: hidden; transform: translateY(4px);
+  transition: opacity .15s, transform .15s, visibility .15s;
+}
+.submenu a {
+  text-transform: none; letter-spacing: 0; font-size: .95rem; font-weight: 400; padding: .55rem 1rem;
+}
+.has-sub:hover > .submenu,
+.has-sub:focus-within > .submenu,
+.has-sub.open > .submenu { opacity: 1; visibility: visible; transform: none; }
+
+/* ---------- Panorama banner ---------- */
+.panorama {
+  position: relative;
+  /* To use the real photo of the Pyrenees from Peyre Blanque, drop it in
+     assets/img/ and change the url below, e.g. url("../img/pyrenees-photo.jpg") */
+  background: #c9d3dc url("../img/pyrenees-panorama.svg") center bottom / cover no-repeat;
+  min-height: clamp(11rem, 26vw, 22rem);
+  display: flex; align-items: flex-end;
+}
+.panorama.short { min-height: clamp(7rem, 14vw, 11rem); }
+.panorama .caption {
+  position: absolute; right: 1rem; bottom: .5rem;
+  font-size: .75rem; color: rgba(255,255,255,.85); letter-spacing: .03em;
+}
+.panorama .hero-text {
+  padding-bottom: clamp(1.25rem, 4vw, 2.75rem); color: #fff;
+  text-shadow: 0 1px 12px rgba(20, 24, 30, .45);
+}
+.hero-text h1 {
+  font-family: var(--serif); font-weight: 600; margin: 0; color: #fff;
+  font-size: clamp(2.2rem, 5.5vw, 4rem); line-height: 1.05;
+}
+.hero-text p { margin: .35rem 0 0; font-size: clamp(1rem, 1.8vw, 1.25rem); }
+.panorama.short .hero-text h1 { font-size: clamp(1.9rem, 4.2vw, 3rem); }
+
+/* ---------- Content ---------- */
+main { padding-block: 3rem 4rem; }
+section + section { margin-top: 3.5rem; }
+
+h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.15; color: var(--ink); }
+h2 { font-size: clamp(1.8rem, 3vw, 2.3rem); margin: 0 0 1rem; }
+h3 { font-size: 1.45rem; margin: 1.75rem 0 .5rem; }
+.eyebrow {
+  font: 700 .75rem var(--sans); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ochre); margin: 0 0 .4rem;
+}
+.lede { font-size: 1.2rem; color: var(--ink-soft); max-width: 44rem; }
+.prose { max-width: 44rem; }
+
+.intro-grid { display: grid; grid-template-columns: 17rem 1fr; gap: 2.5rem; align-items: start; }
+.portrait {
+  aspect-ratio: 4 / 5; background: var(--ochre-soft); border: 1px solid var(--rule);
+  display: grid; place-items: center; color: var(--ink-soft); font-size: .85rem; text-align: center; padding: 1rem;
+}
+
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr)); gap: 1.5rem; }
+.card {
+  background: var(--paper); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden;
+  display: flex; flex-direction: column; text-decoration: none; color: inherit;
+  transition: transform .15s, box-shadow .15s;
+}
+a.card:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(42,38,34,.1); color: inherit; }
+.card .thumb {
+  aspect-ratio: 16 / 9; background: #9fb0bf url("../img/pyrenees-panorama.svg") center bottom / cover;
+  display: grid; place-items: center;
+}
+.card .thumb.ochre { background: linear-gradient(135deg, #b9663a, #7a3518); }
+.card .thumb.slate { background: linear-gradient(135deg, #56677a, #2f3946); }
+.card .thumb.sand { background: linear-gradient(135deg, #d9c3a3, #b39672); }
+.card .thumb img { width: 4.5rem; }
+.card .body { padding: 1.1rem 1.25rem 1.4rem; }
+.card h3 { margin: 0 0 .35rem; font-size: 1.35rem; }
+.card p { margin: 0; color: var(--ink-soft); font-size: .97rem; }
+
+.band { background: var(--paper); border-block: 1px solid var(--rule); padding-block: 3rem; }
+.band section + section { margin-top: 0; }
+
+.btc-flag { display: flex; align-items: center; gap: .8rem; }
+.btc-flag img { width: 3.25rem; flex: none; }
+.btc-inline { display: inline-block; width: 1.3em; vertical-align: -.25em; margin-right: .25em; }
+
+.pubs { list-style: none; padding: 0; margin: 0; max-width: 48rem; }
+.pubs li {
+  padding: .85rem 0 .85rem 1rem; border-bottom: 1px solid var(--rule);
+  border-left: 3px solid transparent;
+}
+.pubs li:hover { border-left-color: var(--ochre); }
+.pubs .year { font-weight: 700; color: var(--ochre); margin-right: .35rem; }
+
+.links { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr)); }
+.links li { background: var(--paper); border: 1px solid var(--rule); padding: 1rem 1.25rem; border-radius: 4px; }
+.links strong { display: block; font-family: var(--serif); font-size: 1.25rem; }
+.links span { color: var(--ink-soft); font-size: .95rem; }
+
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(13rem, 100%), 1fr)); gap: 1rem; }
+.gallery .ph {
+  aspect-ratio: 4 / 3; background: var(--ochre-soft); border: 1px dashed #c8b49e;
+  display: grid; place-items: center; color: var(--ink-soft); font-size: .85rem; text-align: center; padding: .5rem;
+}
+
+.button {
+  display: inline-block; padding: .7rem 1.3rem; background: var(--ink); color: #fff; text-decoration: none;
+  font: 600 .8rem var(--sans); letter-spacing: .12em; text-transform: uppercase; border-radius: 3px;
+}
+.button:hover { background: var(--ochre); color: #fff; }
+.button.ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+.button.ghost:hover { background: var(--ink); color: #fff; }
+
+.note {
+  background: #fff6db; border: 1px solid #ecd893; padding: .7rem 1rem; border-radius: 4px;
+  font-size: .9rem; color: #6b5a1e; max-width: 48rem;
+}
+
+.toc { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 2rem; padding: 0; list-style: none; }
+.toc a {
+  display: block; padding: .4rem .85rem; border: 1px solid var(--rule); border-radius: 999px;
+  text-decoration: none; color: var(--ink); font-size: .9rem; background: var(--paper);
+}
+.toc a:hover { border-color: var(--ochre); color: var(--ochre); }
+
+/* ---------- Footer ---------- */
+.site-footer { background: var(--slate); color: #dfe5ea; padding-block: 2.5rem; font-size: .92rem; }
+.site-footer a { color: #fff; }
+.site-footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1.5rem; }
+.site-footer .name { font-family: var(--serif); font-size: 1.4rem; color: #fff; }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 860px) {
+  .nav-toggle { display: block; }
+  .main-nav {
+    position: absolute; left: 0; right: 0; top: 100%;
+    background: var(--paper); border-bottom: 1px solid var(--rule); display: none;
+  }
+  .main-nav.open { display: block; }
+  .main-nav > ul { flex-direction: column; padding: .5rem 1.25rem 1rem; }
+  .main-nav a, .main-nav .menu-btn { padding: .8rem 0; width: 100%; text-align: left; }
+  .submenu {
+    position: static; box-shadow: none; border: 0; border-left: 2px solid var(--ochre);
+    opacity: 1; visibility: visible; transform: none; display: none; padding: 0 0 .5rem; min-width: 0;
+  }
+  .has-sub:hover > .submenu, .has-sub:focus-within > .submenu { display: none; }
+  .has-sub.open > .submenu { display: block; }
+  .intro-grid { grid-template-columns: 1fr; }
+  .portrait { max-width: 15rem; }
+}
